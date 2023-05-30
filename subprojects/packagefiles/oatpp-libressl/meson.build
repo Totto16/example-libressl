@@ -16,12 +16,23 @@ oatpp_module_so_version = (
 
 install = get_option('install')
 
+override_options = []
+if get_option('shared_libs')
+    override_options += 'default_library=shared'
+else
+    override_options += 'default_library=static'
+endif
+
 deps = []
 src_files = []
 inc_dirs = []
 
 
-deps += dependency('oatpp', version: '1.3.0', default_options: ['tests=false'])
+deps += dependency(
+    'oatpp',
+    version: '1.3.0',
+    default_options: ['tests=disabled'],
+)
 deps += dependency('libressl', 'LibreSSL')
 
 subdir('src')
@@ -33,6 +44,7 @@ lib_oatpp_libressl = library(
     dependencies: deps,
     include_directories: inc_dirs,
     install: install,
+    override_options: override_options,
     soversion: oatpp_module_so_version,
     version: oatpp_module_version,
 )

@@ -11,7 +11,11 @@ project(
 )
 
 deps = []
-deps += dependency('oatpp', version: '1.3.0', default_options: ['tests=false'])
+deps += dependency(
+    'oatpp',
+    version: '1.3.0',
+    default_options: ['tests=disabled'],
+)
 deps += dependency(
     'oatpp-libressl',
     version: '1.3.0',
